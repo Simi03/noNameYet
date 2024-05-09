@@ -1,0 +1,89 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyxtrkc53q3fr"]
+
+[ext_resource type="Script" path="res://Scenes/Marker2D.gd" id="1_42jyw"]
+[ext_resource type="Texture2D" uid="uid://cyst44dyotjkj" path="res://Assets/Triangle.png" id="1_bepn7"]
+
+[sub_resource type="GDScript" id="GDScript_asrk5"]
+script/source = "extends CharacterBody2D
+
+signal healthChanged
+
+const speed = 300.0
+const dashSpeed = 1000
+
+var canDash = true
+var isDashing = false
+
+var maxHealth = 5
+var currentHealth = 5
+
+
+
+
+func get_input():
+
+	var input_direction = Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
+	velocity = input_direction * speed
+	if(Input.is_action_just_pressed(\"ui_dash\") and canDash):
+		dash(input_direction)
+
+	
+
+func _physics_process(delta):
+	if(!isDashing):
+		get_input()
+	move_and_slide()
+	
+func dmgPlayer(dmg: int):
+	currentHealth = currentHealth - dmg
+	healthChanged.emit(currentHealth)
+	
+func _process(delta):
+	if(currentHealth < 1):
+		print(\"you dead bish\")
+	
+
+func dash(direction: Vector2):
+	isDashing = true
+	canDash = false
+	velocity = direction * dashSpeed
+	$DashDuration.start()
+
+
+func _on_dash_duration_timeout():
+	isDashing = false
+	canDash = false
+	$DashTimeout.start()
+
+
+func _on_dash_timeout_timeout():
+	canDash = true
+"
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(0, 19)
+motion_mode = 1
+script = SubResource("GDScript_asrk5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.0393082, 0.0451262)
+polygon = PackedVector2Array(7, -414.9, 7, -412.5, 497.3, 436, 496.2, 438, -497, 438, -497, 433.5, -3, -418.5, -3, -420.3, -0.700012, -421.4)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+script = ExtResource("1_42jyw")
+
+[node name="Sprite2D" type="Sprite2D" parent="Marker2D"]
+rotation = -0.000563529
+scale = Vector2(0.0393082, 0.0451262)
+texture = ExtResource("1_bepn7")
+
+[node name="DashTimeout" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashDuration" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="DashTimeout" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashTimeout" to="." method="_on_dash_timeout_timeout"]
+[connection signal="timeout" from="DashDuration" to="." method="_on_dash_duration_timeout"]
