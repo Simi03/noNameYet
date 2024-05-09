@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://comtknobudciw"
-path="res://.godot/imported/pixil-frame-0.png-aa32865cd6de588297639736f50fb272.ctex"
+uid="uid://lbkehuahrlsj"
+path="res://.godot/imported/CowboyEnemy.png-f5d8f02baff0a987288034f59f0f2fac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/pixil-frame-0.png"
-dest_files=["res://.godot/imported/pixil-frame-0.png-aa32865cd6de588297639736f50fb272.ctex"]
+source_file="res://Assets/CowboyEnemy.png"
+dest_files=["res://.godot/imported/CowboyEnemy.png-f5d8f02baff0a987288034f59f0f2fac.ctex"]
 
 [params]
 

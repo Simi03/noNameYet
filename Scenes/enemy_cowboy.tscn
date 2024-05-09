@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bswvbjfdwtb8j"]
+
+[ext_resource type="Script" path="res://Scenes/enemy_cowboy.gd" id="1_8o8yq"]
+[ext_resource type="PackedScene" uid="uid://iafou2mfwah8" path="res://Scenes/killzone.tscn" id="1_nq1x2"]
+[ext_resource type="Texture2D" uid="uid://lbkehuahrlsj" path="res://Assets/CowboyEnemy.png" id="2_phhmh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u6n4h"]
+radius = 26.9258
+
+[node name="EnemyCowboy" type="CharacterBody2D"]
+script = ExtResource("1_8o8yq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_phhmh")
+
+[node name="Killzone2" parent="." instance=ExtResource("1_nq1x2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone2"]
+position = Vector2(2, 5)
+shape = SubResource("CircleShape2D_u6n4h")
+
+[node name="ShotCoolDown" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="BulletSpawnPosition" type="Marker2D" parent="."]
+position = Vector2(33, 16)
+
+[connection signal="timeout" from="ShotCoolDown" to="." method="_on_shot_cool_down_timeout"]

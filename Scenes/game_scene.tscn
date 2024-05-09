@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck1bmmfjpkndh"]
+[gd_scene load_steps=6 format=3 uid="uid://ck1bmmfjpkndh"]
 
 [ext_resource type="PackedScene" uid="uid://dyxtrkc53q3fr" path="res://Scenes/Player.tscn" id="1_l6w2r"]
 [ext_resource type="Script" path="res://Scenes/game_scene.gd" id="1_xh6q0"]
 [ext_resource type="PackedScene" uid="uid://dopcjury5y27f" path="res://Scenes/Enemy.tscn" id="2_tgcew"]
 [ext_resource type="PackedScene" uid="uid://bucfvsaluoo6g" path="res://Scenes/hearts_container.tscn" id="3_7bsia"]
+[ext_resource type="PackedScene" uid="uid://bswvbjfdwtb8j" path="res://Scenes/enemy_cowboy.tscn" id="4_uvoqd"]
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_xh6q0")
@@ -13,8 +14,12 @@ script = ExtResource("1_xh6q0")
 [node name="Enemy" parent="." instance=ExtResource("2_tgcew")]
 position = Vector2(98, -59)
 
+[node name="EnemyCowboy" parent="." instance=ExtResource("4_uvoqd")]
+texture_filter = 1
+position = Vector2(-414, -181)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.2, 1.2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
